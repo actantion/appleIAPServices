@@ -1,2 +1,2 @@
 # purchase_ios
-purchase for ios
+apple IAP for iOS
