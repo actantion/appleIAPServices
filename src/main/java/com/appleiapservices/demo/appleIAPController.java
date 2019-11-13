@@ -1,6 +1,7 @@
 package com.appleiapservices.demo;
 
 import com.appleiapservices.demo.util.JsonUtil;
+import com.appleiapservices.demo.util.LoadTenonLib;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.appleiapservices.demo.model.AppleIAPResultModel;
@@ -17,6 +18,8 @@ public class appleIAPController {
                 AppleIAPResultModel obj = JsonUtil.decodingJSON(verifyResult, AppleIAPResultModel.class);
                 if (obj.status == 0){
                     System.out.println("验证成功");
+                    LoadTenonLib instance =  new LoadTenonLib().initP2PNetwork("127.0.01",7981,"","","");
+
                     return true;
                 }else{
                     System.out.println("验证失败");
