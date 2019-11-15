@@ -53,12 +53,31 @@
             <artifactId>lombok</artifactId>
             <version>1.16.22</version>
         </dependency>
-
-
+        <!--
+        <dependency>
+            <groupId>com.cmakelist</groupId>  
+            <artifactId>cmakelist</artifactId>  
+            <version>1.0</version>  
+            <scope>system</scope>  
+            <systemPath>${project.basedir}/src/main/java/com/CMakeLists.txt</systemPath>  
+        </dependency>
+-->
 
     </dependencies>
     <build>
         <finalName>appleIAPServices</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>lib/*.a</include>
+                    <include>*.txt</include>
+                    <include>*.cpp</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

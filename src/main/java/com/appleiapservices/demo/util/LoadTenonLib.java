@@ -3,7 +3,7 @@ package com.appleiapservices.demo.util;
 public class LoadTenonLib {
     public native LoadTenonLib initP2PNetwork(String ip, int port, String bootstrap, String file_path, String pri_key);
     static{
-        System.loadLibrary("hello");
+        System.loadLibrary("libclient");
     }
     public native void p2pDestroy();
     static{
@@ -35,9 +35,17 @@ public class LoadTenonLib {
     static{
 
     }
-    public native void getBalance();
+    public native float getRandom();
     static{
-
+        System.loadLibrary("libTenonTest");
+    }
+    public native float tenonTest();
+    static{
+        System.loadLibrary("libTenonTest");
+    }
+    public native float getBalance();
+    static{
+        System.loadLibrary("libTenonTest");
     }
     public native void setFirstTimeInstall();
     static{

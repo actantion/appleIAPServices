@@ -1,15 +1,19 @@
 package com.appleiapservices.demo;
 
+import com.appleiapservices.demo.natives.INativeXXX;
 import com.appleiapservices.demo.util.JsonUtil;
 import com.appleiapservices.demo.util.LoadTenonLib;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.appleiapservices.demo.model.AppleIAPResultModel;
 @RestController
-public class appleIAPController {
+public class appleIAPController{
+
     @RequestMapping("/appleIAPAuth")
     public boolean appleIAPAuth(String transactionID,String receipt){
         System.out.println("transactionID："+transactionID+"receipt："+receipt);
+        System.out.println(INativeXXX.INSTANCE.getRandom());
+
         try {
             String verifyResult =  IosVerifyUtil.buyAppVerify(receipt,0);
             if (verifyResult != null) {
@@ -18,7 +22,6 @@ public class appleIAPController {
                 AppleIAPResultModel obj = JsonUtil.decodingJSON(verifyResult, AppleIAPResultModel.class);
                 if (obj.status == 0){
                     System.out.println("验证成功");
-                    LoadTenonLib instance =  new LoadTenonLib().initP2PNetwork("127.0.01",7981,"","","");
 
                     return true;
                 }else{
@@ -32,5 +35,9 @@ public class appleIAPController {
             System.out.println("Exception");
             return false;
         }
+    }
+
+    public float getBalance() {
+        return 0;
     }
 }
