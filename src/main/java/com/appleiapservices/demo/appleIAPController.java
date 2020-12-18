@@ -37,6 +37,17 @@ public class appleIAPController{
         }
     }
 
+    @RequestMapping("/getOrderInfo")
+    public String getOrderInfo(String productID,String userToken){
+        System.out.println("productID："+productID+" userToken："+userToken);
+        System.out.println(INativeXXX.INSTANCE.getRandom());
+
+        try {
+            return "1234567890gg";
+        } catch (Exception ex) {
+            System.out.println("Exception");
+        }
+    }
     public float getBalance() {
         return 0;
     }
