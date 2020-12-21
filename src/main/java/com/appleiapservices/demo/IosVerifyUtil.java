@@ -77,8 +77,9 @@ public class IosVerifyUtil {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             BufferedOutputStream hurlBufOus = new BufferedOutputStream(conn.getOutputStream());
-
-            String str = String.format(Locale.CHINA, "{\"receipt-data\":\"" + receipt + "\"}");//拼成固定的格式传给平台
+//            SHARED_SECRET
+//            receipt = receipt.replace(" ", "+");
+            String str = String.format(Locale.CHINA, "{\"receipt-data\":\"" + receipt + "\" + ","\"password\""+":"+"\"726be3fda0c84fcb8d8792344a1e53c2\"}");//拼成固定的格式传给平台
             hurlBufOus.write(str.getBytes());
             hurlBufOus.flush();
 

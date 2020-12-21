@@ -12,8 +12,6 @@ public class appleIAPController{
     @RequestMapping("/appleIAPAuth")
     public boolean appleIAPAuth(String transactionID,String receipt){
         System.out.println("transactionID："+transactionID+"receipt："+receipt);
-        System.out.println(INativeXXX.INSTANCE.getRandom());
-
         try {
             String verifyResult =  IosVerifyUtil.buyAppVerify(receipt,0);
             if (verifyResult != null) {
@@ -34,18 +32,6 @@ public class appleIAPController{
         } catch (Exception ex) {
             System.out.println("Exception");
             return false;
-        }
-    }
-
-    @RequestMapping("/getOrderInfo")
-    public String getOrderInfo(String productID,String userToken){
-        System.out.println("productID："+productID+" userToken："+userToken);
-        System.out.println(INativeXXX.INSTANCE.getRandom());
-
-        try {
-            return "1234567890gg";
-        } catch (Exception ex) {
-            System.out.println("Exception");
         }
     }
     public float getBalance() {
