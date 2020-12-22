@@ -77,9 +77,10 @@ public class IosVerifyUtil {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             BufferedOutputStream hurlBufOus = new BufferedOutputStream(conn.getOutputStream());
-//            SHARED_SECRET
-//            receipt = receipt.replace(" ", "+");
-            String str = String.format(Locale.CHINA, "{\"receipt-data\":\"" + receipt + "\" + ","\"password\""+":"+"\"726be3fda0c84fcb8d8792344a1e53c2\"}");//拼成固定的格式传给平台
+
+            // 内购需要带上password,在appstore中获取共享密钥，地址在这里：https://appstoreconnect.apple.com/apps/1483566411/appstore/addons?m=
+            String str = String.format(Locale.CHINA,"{\"receipt-data\":\"" + receipt + "\",\"password\""+":"+"\"726be3fda0c84fcb8d8792344a1e53c2\"}");//拼成固定的格式传给平台
+
             hurlBufOus.write(str.getBytes());
             hurlBufOus.flush();
 

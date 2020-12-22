@@ -1,0 +1,14 @@
+com/appleiapservices/demo/natives/INativeXXX.class
+com/appleiapservices/demo/IosVerifyUtil$1.class
+com/appleiapservices/demo/DemoApplication.class
+com/appleiapservices/demo/model/ReceiptModel.class
+com/appleiapservices/demo/IosVerifyUtil.class
+com/appleiapservices/demo/model/appleIAPRespModel.class
+com/meitianiot/platform/open/exceptions/JsonException.class
+com/appleiapservices/demo/model/AppleIAPResultModel.class
+com/appleiapservices/demo/IosVerifyUtil$TrustAnyTrustManager.class
+com/appleiapservices/demo/IosVerifyUtil$TrustAnyHostnameVerifier.class
+com/appleiapservices/demo/model/InAppModel.class
+com/appleiapservices/demo/appleIAPController.class
+com/appleiapservices/demo/util/JsonUtil.class
+com/appleiapservices/demo/util/LoadTenonLib.class
