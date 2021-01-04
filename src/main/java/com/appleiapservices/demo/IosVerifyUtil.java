@@ -1,13 +1,13 @@
 package com.appleiapservices.demo;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -100,19 +100,70 @@ public class IosVerifyUtil {
         return null;
     }
 
-    /**
-     * 用BASE64加密
-     *
-     * @param str
-     * @return
-     */
-//    public static String getBASE64(String str) {
-//        byte[] b = str.getBytes();
-//        String s = null;
-//        if (b != null) {
-//            s = new sun.misc.BASE64Encoder().encode(b);
-//        }
-//        return s;
-//    }
+    public static String createRandomStr(int length){
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);
+            stringBuffer.append(str.charAt(number));
+        }
+        return stringBuffer.toString();
+    }
+
+    public static String GenGid(String randStr) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(randStr.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static int sendPost(String to,String gid ,int amount) throws Exception {
+        String url = "http://3.81.161.170:8787/tx";
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        //添加请求头
+        con.setRequestMethod("POST");
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        con.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+        String urlParameters = "{\"data\": {" +
+                "\"to\": \"" + to + "\"," +
+                " \"amount\": " + amount + "," +
+                "\"gid\": \"" + gid + "\"}}";
+
+        //发送Post请求
+        con.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        wr.writeBytes(urlParameters);
+        wr.flush();
+        wr.close();
+
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        //打印结果
+
+        System.out.println(responseCode);
+        System.out.println(response.toString());
+        return responseCode;
+    }
 
 }
